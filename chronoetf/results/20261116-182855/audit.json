@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "daily_rows": 26790,
+  "metric_groups_independently_recomputed": 152,
+  "frozen_baselines": 3,
+  "cash_rows": 8460,
+  "causal_target_strategies": 19,
+  "future_perturbation_start": "2024-01-01",
+  "group_open_label": "passed",
+  "cash_calendar_compounding": "passed",
+  "train_boundary_rows": 72,
+  "input_hashes": {
+    "510300_150105-261030.csv": "992323b2caaa616044203d2465715f21ddf122edb0c56e7fb60ceea19b688f1c",
+    "510500_150105-261030.csv": "7d1a681c9305fcf291a2af853ee845b082a33d4c1ebf688cca829cc0b399a776",
+    "159915_150105-261030.csv": "04343ca30ad6c79f1df19bda674af3f18013355db203353f3060db6e9cf8394a",
+    "518880_150105-261030.csv": "8840198ced2149973b5cffee82ce7d77a222670f3b4502aac8806f04f2ec1c63",
+    "511010_150105-261030.csv": "93c7a04299be40a79569220d9a5db8f8bf1e387ea462e715bf166c559e325cac"
+  }
+}

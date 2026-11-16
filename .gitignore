@@ -16,3 +16,6 @@ chronoetf/results/20261116-163605/*
 !chronoetf/results/20261116-163605/train_folds.csv
 !chronoetf/results/20261116-163605/returns_comparison.png
 !chronoetf/results/20261116-163605/volatility_comparison.png
+!chronoetf/results/20261116-182855/
+!chronoetf/results/20261116-182855/*
+chronoetf/results/20261116-182855/qa_*.png

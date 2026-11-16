@@ -132,3 +132,13 @@ python -B -X utf8 chronoetf/build_data_module.py
 五份成品直接保存在 `chronoetf/data/`，文件名为 `六位代码_YYMMDD-YYMMDD.csv`。字段依次为 `date,open,high,low,close,volume_lots,status`。
 
 本轮实测区间为 2015-01-05 至 2026-10-30，共 2,872 个交易日。五只 ETF 同时有行情的日期有 2,869 天。每步运行和核验记录见项目根目录的 `log.md`。
+
+## 保留完整 T-MAVE 的收益增强实验
+
+运行 `python -B -X utf8 chronoetf/backtest.py --enhance`，审计运行 `python -B -X utf8 chronoetf/audit_enhancement.py chronoetf/results/20261116-182855`（新运行替换目录）。协议见根目录 `RESEARCH_GOAL.md`，完整解释见 `ChronoETF_技术手册.md` 第 16–18 节。
+
+完整快慢记忆、三类时钟和事件写入门控保持不变。新增股票/黄金分组方差读出，以 20/60 日收缩相关矩阵构造半正定协方差，在不超过原共同缩仓预测风险的约束下尽量保留基础配置。另比较半幅、回补、组合以及开发期风险校准；EWMA、固定双记忆、仅交易日作为同算法对照。现金净年收益 0/1/2% 仅为假设情景。
+
+本轮共 19 条策略、5/10/25 bp、456 行全段和逐年指标。2024–2026 历史回放中，温和风险校准候选净年化 7.7351%、波动 2.7725%、最大回撤 −2.0583%；原版为 7.5363%、2.9175%、−2.1713%。但候选开发期收益低约 0.04 个百分点，所有候选都未通过预设门槛，因此继续保留 `full_75` / `full_90`。
+
+`tmave_states.csv` 保存全部因子、三时钟、门控和快慢状态；`weekly_forecasts.csv` 保存共同/股票/黄金预测；`decisions.csv` 保存分组权重和双风险约束比率；`calibration.csv` 记录原模型阈值及开发期倍率选择。风险校准候选权重在 `daily_backtest.csv`；它的前置优化器诊断对应同档 `full_split`。全部失败候选、现金情景、区间、训练边界、输入指纹和核验结果一并保存。

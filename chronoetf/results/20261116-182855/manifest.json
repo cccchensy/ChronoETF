@@ -1,0 +1,31 @@
+{
+  "freeze_date": "2026-11-16",
+  "fresh_sessions": 0,
+  "input_hashes": {
+    "510300_150105-261030.csv": "992323b2caaa616044203d2465715f21ddf122edb0c56e7fb60ceea19b688f1c",
+    "510500_150105-261030.csv": "7d1a681c9305fcf291a2af853ee845b082a33d4c1ebf688cca829cc0b399a776",
+    "159915_150105-261030.csv": "04343ca30ad6c79f1df19bda674af3f18013355db203353f3060db6e9cf8394a",
+    "518880_150105-261030.csv": "8840198ced2149973b5cffee82ce7d77a222670f3b4502aac8806f04f2ec1c63",
+    "511010_150105-261030.csv": "93c7a04299be40a79569220d9a5db8f8bf1e387ea462e715bf166c559e325cac"
+  },
+  "protocol": "RESEARCH_GOAL.md",
+  "selection": [
+    {
+      "level": 75,
+      "development_choice": "full_75",
+      "retained_policy": "full_75",
+      "candidate_count": 5,
+      "development_pass_count": 0,
+      "status": "retain_baseline"
+    },
+    {
+      "level": 90,
+      "development_choice": "full_90",
+      "retained_policy": "full_90",
+      "candidate_count": 5,
+      "development_pass_count": 0,
+      "status": "retain_baseline"
+    }
+  ],
+  "protocol_sha256": "dfa9e7fec5c4208ca5cb22c3fa198ee5b3d4ee0f20c69bb98a9d0a09c15c664c"
+}

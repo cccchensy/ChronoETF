@@ -416,7 +416,10 @@ def annotate_account(market, path):
     for group, name in zip(GROUPS, labels):
         path[f"pnl_{name}"] = pnl[:, group].sum(axis=1)
     path["pnl_fee"] = -path["cost_nav"]
-    np.testing.assert_allclose(path[[f"pnl_{x}" for x in (*labels, "fee")]].sum(axis=1),
+    pnl_columns = [f"pnl_{x}" for x in (*labels, "fee")]
+    if "pnl_cash" in path:
+        pnl_columns.append("pnl_cash")
+    np.testing.assert_allclose(path[pnl_columns].sum(axis=1),
                                np.diff(np.r_[1, nav]), atol=1e-9, rtol=0)
 
 

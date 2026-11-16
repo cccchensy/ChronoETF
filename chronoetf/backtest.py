@@ -215,7 +215,7 @@ def trade_at_open(open_values, cash, target, tradable, fee_rate):
     return open_values + planned, max(0.0, cash), traded / opening_nav, traded * fee_rate
 
 
-def simulate(market, targets, strategy, start, end, cost_bps, order_days=None):
+def simulate(market, targets, strategy, start, end, cost_bps, order_days=None, cash_annual_rate=0.0):
     dates = market.close.index
     open_array = market.opening.to_numpy()
     close_array = market.close.to_numpy()
@@ -231,6 +231,10 @@ def simulate(market, targets, strategy, start, end, cost_bps, order_days=None):
     signal_time = pd.NaT
     rows = []
     for i in range(start, end):
+        cash_income = 0.0
+        if cash_annual_rate and i > start:
+            cash_income = cash * np.expm1(np.log1p(cash_annual_rate) * (dates[i] - dates[i - 1]).days / 365)
+            cash += cash_income
         live = np.isfinite(open_array[i])
         overnight_live = live & np.isfinite(previous_marks[i])
         notionals[overnight_live] *= open_array[i, overnight_live] / previous_marks[i, overnight_live]
@@ -251,6 +255,7 @@ def simulate(market, targets, strategy, start, end, cost_bps, order_days=None):
             dates[i], signal_time if scheduled or delayed else pd.NaT,
             scheduled, delayed, opening_nav, close_nav, close_nav / nav - 1, turnover, fee, cash / close_nav,
             *weights, *desired,
+            *([cash_income] if cash_annual_rate else []),
         ))
         nav = close_nav
     return pd.DataFrame(
@@ -258,6 +263,7 @@ def simulate(market, targets, strategy, start, end, cost_bps, order_days=None):
             "date", "signal_date", "scheduled", "resumed_order", "open_nav_before_trade", "nav",
             "net_return", "turnover", "cost_nav", "cash_weight", *(f"w_{code}" for code in CODES),
             *(f"target_{code}" for code in CODES),
+            *(["pnl_cash"] if cash_annual_rate else []),
         ],
     ).set_index("date")
 
@@ -452,10 +458,15 @@ def main():
     parser.add_argument("--horizon", action="store_true", help="运行 T-MAVE 自适应协方差记忆实验")
     parser.add_argument("--event-risk", action="store_true", help="运行 T-MAVE 重复冲击和事件风控实验")
     parser.add_argument("--vol-target", action="store_true", help="运行 T-MAVE 组合波动目标实验")
+    parser.add_argument("--enhance", action="store_true", help="运行保留完整 T-MAVE 的收益增强实验")
     parser.add_argument("--output-root", type=Path, default=ROOT / "results", help="运行目录的上一级路径")
     args = parser.parse_args()
     now = datetime.now(TZ_SHANGHAI)
     folder = args.output_root / now.strftime("%Y%m%d-%H%M%S")
+    if args.enhance:
+        from enhancement import run_enhancement
+
+        return run_enhancement(folder, now)
     if args.vol_target:
         from volatility_policy import run_volatility_policy
 

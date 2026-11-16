@@ -143,7 +143,7 @@ def returns_plot(folder, paths, keys, filename, title, subtitle, labels=STRATEGI
     fig, (upper, lower) = plt.subplots(
         2, 1, figsize=(11.8, 6.1), sharex=True, gridspec_kw={"height_ratios": [2.05, 1], "hspace": .18},
     )
-    fig.subplots_adjust(left=.095, right=.965, bottom=.155, top=.78)
+    fig.subplots_adjust(left=.095, right=.965, bottom=.22 if len(keys) > 1 else .155, top=.78)
     fig.text(.095, .932, title, fontsize=21, fontweight="bold")
     fig.text(.095, .872, subtitle, fontsize=10, color=MUTED)
     for axis in (upper, lower):
