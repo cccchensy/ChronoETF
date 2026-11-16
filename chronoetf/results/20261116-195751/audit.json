@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "five_open_interval_labels": 1656,
+  "daily_account_rows": 126900,
+  "full_period_account_metrics": 180,
+  "manual_memory_checks": 27,
+  "alert_confusion_tables": 120,
+  "training_boundaries": 216,
+  "future_perturbation_basket": "sector",
+  "future_perturbation_start": "2024-01-01",
+  "original_forecast_columns_unchanged": true,
+  "development_vol_max_gap": 6.54261213609e-09
+}

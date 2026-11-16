@@ -161,9 +161,9 @@ def shrink_choice(actual, calibrated, raw, paired=False):
     return gamma, mean, se
 
 
-def forecast(schedule, risk, features):
+def forecast(schedule, risk, features, readouts=READOUTS):
     predictions = pd.DataFrame({"ewma": risk.ewma, "calibrated": np.nan})
-    for method in READOUTS:
+    for method in readouts:
         predictions[f"{method}_raw"] = np.nan
         predictions[f"{method}_shrunk"] = np.nan
         predictions[f"{method}_paired"] = np.nan
@@ -178,7 +178,7 @@ def forecast(schedule, risk, features):
         predictions.loc[ix, "calibrated"] = risk.ewma[ix] * calibration
         validation = (schedule.execution_date.dt.year.ge(max(2018, year - 3)) & schedule.label_row.lt(first)
                       & np.isfinite(predictions.calibrated) & np.isfinite(risk.realized)).to_numpy()
-        for method in READOUTS:
+        for method in readouts:
             raw_log, beta, center, scale, n = fit_model(features[method], risk.ewma.to_numpy(), risk.realized.to_numpy(), train, ix)
             raw = predictions.loc[ix, "calibrated"].to_numpy() * np.exp(np.clip(raw_log - np.log(calibration), -np.log(2), np.log(2)))
             predictions.loc[ix, f"{method}_raw"] = raw
@@ -253,15 +253,16 @@ def prediction_tests(losses):
     return frame
 
 
-def books(market, schedule, base, predictions, periods):
+def books(market, schedule, base, predictions, periods, methods=None, economic=None):
     active = schedule.phase.ne("formation")
     indices = schedule.signal_row[active].to_numpy()
     dev = schedule.loc[active, "phase"].eq("development").to_numpy()
     capital_days = base[indices, :4].sum(axis=1) * schedule.days_held[active].to_numpy()
     targets, rows = {}, []
-    methods = ["ewma", "calibrated", "static_paired", "fixed_paired", "full_paired", "price_paired", "full_shrunk",
+    methods = methods if methods is not None else ["ewma", "calibrated", "static_paired", "fixed_paired", "full_paired", "price_paired", "full_shrunk",
                "joint_static_paired", "joint_fixed_paired", "joint_trade_paired", "joint_natural_paired",
                "joint_event_paired", "joint_full_paired", "joint_full_raw"]
+    economic = ECONOMIC if economic is None else economic
 
     def target(model, goal):
         result = base.copy()
@@ -277,7 +278,7 @@ def books(market, schedule, base, predictions, periods):
             targets[key] = target(model, goal)
             rows.append({"strategy": key, "goal_daily_sd": goal, "lane": "same_budget"})
         baseline = performance_stats(simulate(market, targets[f"common_ewma_{level}"], "ewma", *periods["development"], 5))["annual_vol"]
-        for model in ECONOMIC:
+        for model in economic:
             if model == "ewma":
                 matching_goal = goal
             else:

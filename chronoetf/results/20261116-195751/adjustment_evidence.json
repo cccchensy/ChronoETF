@@ -1,0 +1,90 @@
+{
+  "159929": [
+    {
+      "start": "2015-01-05",
+      "stop": "2017-01-01",
+      "returned_key": "day",
+      "hfq_qfq_raw_equal": true,
+      "rows": 488
+    },
+    {
+      "start": "2017-01-01",
+      "stop": "2019-01-01",
+      "returned_key": "day",
+      "hfq_qfq_raw_equal": true,
+      "rows": 487
+    },
+    {
+      "start": "2019-01-01",
+      "stop": "2021-01-01",
+      "returned_key": "day",
+      "hfq_qfq_raw_equal": true,
+      "rows": 487
+    },
+    {
+      "start": "2021-01-01",
+      "stop": "2023-01-01",
+      "returned_key": "day",
+      "hfq_qfq_raw_equal": true,
+      "rows": 485
+    },
+    {
+      "start": "2023-01-01",
+      "stop": "2025-01-01",
+      "returned_key": "day",
+      "hfq_qfq_raw_equal": true,
+      "rows": 484
+    },
+    {
+      "start": "2025-01-01",
+      "stop": "2026-10-31",
+      "returned_key": "day",
+      "hfq_qfq_raw_equal": true,
+      "rows": 441
+    }
+  ],
+  "159930": [
+    {
+      "start": "2015-01-05",
+      "stop": "2017-01-01",
+      "returned_key": "day",
+      "hfq_qfq_raw_equal": true,
+      "rows": 485
+    },
+    {
+      "start": "2017-01-01",
+      "stop": "2019-01-01",
+      "returned_key": "day",
+      "hfq_qfq_raw_equal": true,
+      "rows": 486
+    },
+    {
+      "start": "2019-01-01",
+      "stop": "2021-01-01",
+      "returned_key": "day",
+      "hfq_qfq_raw_equal": true,
+      "rows": 487
+    },
+    {
+      "start": "2021-01-01",
+      "stop": "2023-01-01",
+      "returned_key": "day",
+      "hfq_qfq_raw_equal": true,
+      "rows": 485
+    },
+    {
+      "start": "2023-01-01",
+      "stop": "2025-01-01",
+      "returned_key": "day",
+      "hfq_qfq_raw_equal": true,
+      "rows": 484
+    },
+    {
+      "start": "2025-01-01",
+      "stop": "2026-10-31",
+      "returned_key": "day",
+      "hfq_qfq_raw_equal": true,
+      "rows": 441
+    }
+  ]
+}
