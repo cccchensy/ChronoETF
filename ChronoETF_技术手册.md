@@ -231,6 +231,10 @@ $$m_t=\operatorname{clip}(\theta/\sqrt{\hat v_t},0.35,1).$$
 <a id="s9"></a>
 ## 9. 原组合的预测与配置结果
 
+![冻结配置净收益与回撤：曲线末端直接标注](chronoetf/report_assets/frozen_returns_labeled.png)
+
+图中深蓝为固定 60 日，亮蓝为强控波，橙色为温和控波，紫色虚线为 EWMA，深灰点划线为同仓位静态。上下两个面板均用引导线连接末端标签。
+
 2024-01-02 至 2026-10-30 的账户覆盖 683 日，预测覆盖 145 个有效周。下表均为单边 5 bp：
 
 | 配置基线 | 净年化 | 波动 | 最大回撤 |
@@ -258,7 +262,7 @@ $$m_t=\operatorname{clip}(\theta/\sqrt{\hat v_t},0.35,1).$$
 
 ### 10.2 结果与机制归因
 
-![迁移组合预测损失](chronoetf/results/20261116-195751/transfer_forecasts.png)
+![迁移组合预测损失](chronoetf/report_assets/transfer_forecasts.png)
 
 行业组相对校准 EWMA 改善 6.70%，三个年度均较低。宽基/红利整体差异 +0.12%：2024 年较低、2025 年较高、2026 年相同。其 2026 年 gamma=0；行业组三个评价年度的 gamma 均为 0.5。历史收缩在不同资产结构下选择了不同的修正力度。
 
@@ -321,7 +325,18 @@ python -B -X utf8 chronoetf/transfer_research.py
 python -B -X utf8 chronoetf/report_figures.py
 ```
 
-图解由 `report_figures.py` 从已归档 CSV 生成，主报告采用六页 A4 排版与十二张图。
+图解由 `report_figures.py` 从已归档 CSV 生成，主报告采用六页 A4 排版与十二张图。收益路径的精简输入保存在 `report_assets/frozen_paths.csv`，包含五条曲线各 683 日的净值与回撤，便于独立重绘。
+
+**排版与导出。** Markdown 正文经 Python Markdown 转为 HTML，由 Playwright 调用本机 Microsoft Edge 的 Chromium 打印引擎输出 PDF。`report_print.css` 控制 A4 页边距、字体、段落与页内布局；`report_figures.py` 控制图表配色和标签，`export_report.py` 添加页眉页码，并把 PDF 中的证据链接指向 GitHub。当前采用白底、深蓝标题 `#142D4E`、蓝色 `#0072B2` 与橙色 `#D55E00` 的金融研报样式。[三套配色参考](chronoetf/report_assets/palette_reference.png)
+
+本机安装 Edge 后，可用以下命令导出（导出依赖与回测依赖分开安装）：
+
+```powershell
+python -m pip install markdown playwright
+python -B -X utf8 chronoetf/export_report.py --output "D:/ChronoETF-report.pdf"
+```
+
+主报告的项目概览集中解释应用场景、核心思路和实现范围；各结果页补充指标含义、图表读法与经济解释。技术手册进一步保留公式、训练边界、阈值选择和账户手算，便于从报告中的结论追踪到实现。
 
 | 文件 | 阅读重点 |
 |---|---|
