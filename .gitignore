@@ -19,3 +19,13 @@ chronoetf/results/20261116-163605/*
 !chronoetf/results/20261116-182855/
 !chronoetf/results/20261116-182855/*
 chronoetf/results/20261116-182855/qa_*.png
+!chronoetf/results/20261116-190622/
+!chronoetf/results/20261116-190622/*
+chronoetf/results/20261116-190622/qa_*.png
+!chronoetf/results/20261116-190245/
+chronoetf/results/20261116-190245/*
+!chronoetf/results/20261116-190245/forecast_scores.csv
+!chronoetf/results/20261116-190245/train_folds.csv
+!chronoetf/results/20261116-190245/shrinkage.csv
+!chronoetf/results/20261116-190245/manifest.json
+!chronoetf/results/20261116-190245/protocol_at_run.md

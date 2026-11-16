@@ -459,10 +459,15 @@ def main():
     parser.add_argument("--event-risk", action="store_true", help="运行 T-MAVE 重复冲击和事件风控实验")
     parser.add_argument("--vol-target", action="store_true", help="运行 T-MAVE 组合波动目标实验")
     parser.add_argument("--enhance", action="store_true", help="运行保留完整 T-MAVE 的收益增强实验")
+    parser.add_argument("--residual", action="store_true", help="运行 EWMA 已兑现误差的 T-MAVE 残差研究")
     parser.add_argument("--output-root", type=Path, default=ROOT / "results", help="运行目录的上一级路径")
     args = parser.parse_args()
     now = datetime.now(TZ_SHANGHAI)
     folder = args.output_root / now.strftime("%Y%m%d-%H%M%S")
+    if args.residual:
+        from residual_policy import run_residual
+
+        return run_residual(folder, now)
     if args.enhance:
         from enhancement import run_enhancement
 

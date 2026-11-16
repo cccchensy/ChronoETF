@@ -60,9 +60,9 @@ def group_returns(close):
     return np.log1p(group), log_returns / log_returns.rolling(60, min_periods=55).std().shift().replace(0, np.nan)
 
 
-def build_factors(close):
+def build_factors(close, fit_end=FIT_END):
     dates = close.index
-    history = dates < FIT_END
+    history = dates < fit_end
     group, asset_z = group_returns(close)
     volatility = group.rolling(60, min_periods=55).std().replace(0, np.nan)
     prior_vol = volatility.shift()
