@@ -169,7 +169,15 @@ def returns_plot(folder, paths, keys, filename, title, subtitle, labels=STRATEGI
     lower.xaxis.set_major_locator(mdates.MonthLocator(bymonth=(1, 4, 7, 10)))
     lower.xaxis.set_major_formatter(mdates.DateFormatter("%Y-%m"))
     if len(keys) > 1:
-        fig.legend(loc="lower left", bbox_to_anchor=(.095, .071), frameon=False, ncols=3, borderaxespad=0)
+        legend = fig.legend(loc="lower left", bbox_to_anchor=(.095, .071), frameon=False,
+                            ncols=min(3, len(keys)), borderaxespad=0)
+        # Size the reserved footer from rendered text, so multi-row legends clear date ticks.
+        fig.canvas.draw()
+        renderer = fig.canvas.get_renderer()
+        legend_top = legend.get_window_extent(renderer).y1 / fig.bbox.height
+        tick_bottom = min(label.get_window_extent(renderer).y0 for label in lower.get_xticklabels()) / fig.bbox.height
+        tick_depth = lower.get_position().y0 - tick_bottom
+        fig.subplots_adjust(bottom=max(.22, legend_top + tick_depth + .035))
     fig.text(.095, .033, "数据：腾讯财经后复权日线  |  起始净值 1  |  单边成本 5 bp", fontsize=8, color=MUTED)
     fig.savefig(folder / filename, dpi=170)
     plt.close(fig)
