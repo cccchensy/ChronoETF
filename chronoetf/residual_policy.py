@@ -77,9 +77,9 @@ def error_states(market):
     return states, candidate, detail
 
 
-def prepare(market):
+def prepare(market, freeze_date=FREEZE):
     dates = market.close.index
-    periods, fresh = period_ranges(dates, FREEZE)
+    periods, fresh = period_ranges(dates, freeze_date)
     schedule = holding_schedule(dates, periods)
     ids = schedule.signal_row.to_numpy()
     base = base_portfolio(market, allocations(market.close, ids)["budget_60"])

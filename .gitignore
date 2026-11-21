@@ -51,3 +51,10 @@ chronoetf/results/20261116-195751/*
 !chronoetf/results/20261116-195751/acceptance_gates.csv
 !chronoetf/results/20261116-195751/CANDIDATE_RESULT.md
 !chronoetf/results/20261116-195751/transfer_forecasts.png
+
+!chronoetf/results/20261121-235427/
+chronoetf/results/20261121-235427/*
+!chronoetf/results/20261121-235427/economics.csv
+!chronoetf/results/20261121-235427/evidence.json
+!chronoetf/results/20261121-235427/risk_control.png
+!chronoetf/results/20261121-235427/drawdown_intervals.png
