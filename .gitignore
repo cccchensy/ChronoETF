@@ -31,6 +31,7 @@ chronoetf/results/20261116-190245/*
 !chronoetf/results/20261116-190245/protocol_at_run.md
 
 chronoetf/transfer_data/
+chronoetf/cash_data/
 !chronoetf/results/20261116-195751/
 chronoetf/results/20261116-195751/*
 !chronoetf/results/20261116-195751/data_quality.csv
@@ -58,3 +59,10 @@ chronoetf/results/20261121-235427/*
 !chronoetf/results/20261121-235427/evidence.json
 !chronoetf/results/20261121-235427/risk_control.png
 !chronoetf/results/20261121-235427/drawdown_intervals.png
+
+!chronoetf/results/20261122-133621/
+chronoetf/results/20261122-133621/*
+!chronoetf/results/20261122-133621/economics.csv
+!chronoetf/results/20261122-133621/evidence.json
+!chronoetf/results/20261122-133621/return_risk.png
+!chronoetf/results/20261122-133621/paired_return.png
