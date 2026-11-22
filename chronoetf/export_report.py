@@ -38,8 +38,8 @@ def export(source, output, channel):
                         link.evaluate("(a,url)=>a.href=url", url)
                 page.pdf(path=str(output), print_background=True, prefer_css_page_size=True,
                          display_header_footer=True,
-                         header_template='<div style="font-size:8px;color:#526174;width:100%;margin:0 17mm;font-family:Arial">CHRONOETF &nbsp; / &nbsp; QUANTITATIVE RESEARCH</div>',
-                         footer_template='<div style="font-size:8px;color:#526174;width:100%;margin:0 17mm;display:flex;justify-content:space-between;font-family:Arial"><span>Sample through 2026-10-30</span><span><span class="pageNumber"></span> / <span class="totalPages"></span></span></div>')
+                         header_template='<div style="font:9px SimSun,serif;color:#526174;margin:0 17mm">ChronoETF 研究报告</div>',
+                         footer_template='<div style="font:9px SimSun,serif;color:#526174;width:100%;margin:0 17mm;display:flex;justify-content:space-between"><span>样本截至 2026-10-30</span><span><span class="pageNumber"></span> / <span class="totalPages"></span></span></div>')
             finally:
                 browser.close()
     print(f"Exported {output}")

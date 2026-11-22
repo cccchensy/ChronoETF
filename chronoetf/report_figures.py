@@ -3,12 +3,13 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
+from matplotlib.font_manager import fontManager
 from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
 from matplotlib.ticker import PercentFormatter
 import numpy as np
 import pandas as pd
 
-from report import fonts
+from report import fonts as default_fonts
 
 INK = "#142D4E"
 PRIMARY = "#0072B2"
@@ -28,6 +29,16 @@ MODELS = ["ewma", "calibrated", "joint_static_paired", "joint_fixed_paired",
           "joint_trade_paired", "price_paired", "joint_full_paired"]
 NAMES = ["原始 EWMA", "校准 EWMA", "同输入静态", "固定双记忆", "仅交易日", "单价格记忆", "完整 T-MAVE"]
 CHECKED_TEXT = []
+
+
+def fonts():
+    """宋体优先，仅用于项目报告及其配图。"""
+    default_fonts()
+    installed = {entry.name for entry in fontManager.ttflist}
+    for family in ("SimSun", "Songti SC", "Noto Serif CJK SC"):
+        if family in installed:
+            plt.rcParams["font.family"] = [family, "DejaVu Serif"]
+            break
 
 
 def save(fig, name):
@@ -266,7 +277,7 @@ def labeled_returns():
             positions -= positions[-1]-.94
         for (value, label, color), y in zip(points, positions):
             ax.annotate(label, xy=(end, value), xycoords="data", xytext=(1.055,y),
-                        textcoords="axes fraction", ha="left", va="center", fontsize=10,
+                        textcoords="axes fraction", ha="left", va="center", fontsize=12,
                         color=color, annotation_clip=False,
                         arrowprops={"arrowstyle":"-", "color":color, "lw":.9,
                                     "connectionstyle":"angle,angleA=0,angleB=90,rad=0"})
